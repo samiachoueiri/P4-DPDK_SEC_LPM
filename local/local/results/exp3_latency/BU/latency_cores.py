@@ -1,0 +1,47 @@
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
+
+mpl.rcParams['font.size'] = 30
+fig, ax1 = plt.subplots(figsize=(16, 10))
+
+cores = [1, 2, 3, 4, 5, 6, 7, 8]
+syn_latency = [374.6,31.34,35.7,40.32,46.28,51.9,55.84,61.12]
+synack_latency = [372,32.1,36.14,40.52,46.42,51.7,56.62,62.24]
+ack_latency = [382,31.54,36.8,40.6,46.36,51.16,56.36,62.22]
+fin_latency = [285.6,33.1,36.76,40.3,46.8,51.8,56.64,61.98]
+hh_latency = [368.6,34.02,38.14,42.9,49.58,54.76,60.6,65.54]
+icmp_latency = [376.8,32.32,36.56,41,47.7,52.46,58.06,63.44]
+udp_latency = [375,32,35.98,40.62,46.28,51.34,56.1,61.22]
+
+# First y-axis (Latency %)
+ax1.plot(cores, syn_latency, marker='o', label='SYN Flood',color="gray")
+ax1.plot(cores, synack_latency, marker='s', label='SYN-ACK Flood')
+ax1.plot(cores, ack_latency, marker='^', label='ACK Flood')
+ax1.plot(cores, fin_latency, marker='D', label='FIN Flood')
+ax1.plot(cores, hh_latency, marker='P', label='Heavy Hitter')
+ax1.plot(cores, icmp_latency, marker='.', label='ICMP Flood')
+ax1.plot(cores, udp_latency, marker='.', label='UDP Flood')
+
+fsize = 30
+ax1.set_ylim(-5, 400)
+ax1.set_xlabel('CPU Cores', fontsize=fsize)
+ax1.set_xticks(cores)
+
+# Automatically set y-ticks to include values between 0 and 400
+ax1.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+# Ensure that 300 and 400 are displayed by adjusting the tick marks manually if needed
+ax1.set_yticks([0, 50, 100, 150, 200, 250, 300, 350, 400])
+
+ax1.set_ylabel('Latency (us)', fontsize=fsize)
+ax1.grid(True, linestyle='--')
+ax1.set_xlim(0.9, 8)
+
+# Add legends for both axes
+ax1.legend(loc='upper left', bbox_to_anchor=(0., 1.125, 1, 0.05), ncol=4, mode="expand", borderaxespad=0., fontsize=fsize - 4,labelspacing=0.3, frameon=True)
+plt.tight_layout()
+plt.savefig('latency_cores.pdf')
+
+# Show the plot
+plt.show()

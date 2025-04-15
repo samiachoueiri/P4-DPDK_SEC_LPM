@@ -1,0 +1,261 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Background from h1 to h2
+sudo pktgen -l 0,1 -n 4 -a 07:00.0 -- -P -m "1.0"
+page range
+
+range 0 src mac start 00:00:00:00:00:01
+range 0 src mac min 00:00:00:00:00:01
+range 0 src mac max 00:00:00:00:00:01
+
+range 0 dst mac start 00:00:00:00:00:21
+range 0 dst mac min 00:00:00:00:00:21
+range 0 dst mac max 00:00:00:00:00:21
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.20.1
+range 0 dst ip min 192.168.20.1
+range 0 dst ip max 192.168.20.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 tcp flag clr all
+
+enable 0 range
+page main
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ SYN Flood from h3 to h2
+page range
+
+range 0 src mac start 00:00:00:00:00:03
+range 0 src mac min 00:00:00:00:00:03
+range 0 src mac max 00:00:00:00:00:03
+
+range 0 dst mac start 00:00:00:00:00:22
+range 0 dst mac min 00:00:00:00:00:22
+range 0 dst mac max 00:00:00:00:00:22
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.10.1
+range 0 dst ip min 192.168.10.1
+range 0 dst ip max 192.168.10.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 tcp flag clr
+range 0 tcp flag syn
+
+enable 0 range
+page main
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 20
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ SYN-ACK Flood from h3 to h2
+sudo pktgen -l 0,1 -n 4 -a 07:00.0 -- -P -m "1.0"
+
+page range
+
+range 0 src mac start 00:00:00:00:00:03
+range 0 src mac min 00:00:00:00:00:03
+range 0 src mac max 00:00:00:00:00:03
+
+range 0 dst mac start 00:00:00:00:00:22
+range 0 dst mac min 00:00:00:00:00:22
+range 0 dst mac max 00:00:00:00:00:22
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.10.1
+range 0 dst ip min 192.168.10.1
+range 0 dst ip max 192.168.10.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 tcp flag clr
+range 0 tcp flag syn,ack
+
+enable 0 range
+page main
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 20
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ACK Flood from h3 to h2
+sudo pktgen -l 0,1 -n 4 -a 07:00.0 -- -P -m "1.0"
+
+page range
+
+range 0 src mac start 00:00:00:00:00:03
+range 0 src mac min 00:00:00:00:00:03
+range 0 src mac max 00:00:00:00:00:03
+
+range 0 dst mac start 00:00:00:00:00:22
+range 0 dst mac min 00:00:00:00:00:22
+range 0 dst mac max 00:00:00:00:00:22
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.10.1
+range 0 dst ip min 192.168.10.1
+range 0 dst ip max 192.168.10.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 tcp flag clr
+range 0 tcp flag ack
+
+enable 0 range
+page main
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 20
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FIN-RST Flood from h3 to h2
+page range
+
+range 0 src mac start 00:00:00:00:00:03
+range 0 src mac min 00:00:00:00:00:03
+range 0 src mac max 00:00:00:00:00:03
+
+range 0 dst mac start 00:00:00:00:00:22
+range 0 dst mac min 00:00:00:00:00:22
+range 0 dst mac max 00:00:00:00:00:22
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.10.1
+range 0 dst ip min 192.168.10.1
+range 0 dst ip max 192.168.10.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 tcp flag clr
+range 0 tcp flag fin,rst
+
+enable 0 range
+page main
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 20
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ HH from h3 to h2
+disable 0 range
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 10
+set 0 tcp flag clr
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ICMP Flood from h3 to h2
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 10
+set 0 proto icmp
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ UDP Flood from h3 to h2
+page range
+
+range 0 src mac start 00:00:00:00:00:03
+range 0 src mac min 00:00:00:00:00:03
+range 0 src mac max 00:00:00:00:00:03
+
+range 0 dst mac start 00:00:00:00:00:22
+range 0 dst mac min 00:00:00:00:00:22
+range 0 dst mac max 00:00:00:00:00:22
+
+range 0 src ip start 1.1.1.1
+range 0 src ip min 1.1.1.1
+range 0 src ip max 250.250.250.250
+range 0 src ip inc 0.0.0.1
+
+range 0 dst ip start 192.168.10.1
+range 0 dst ip min 192.168.10.1
+range 0 dst ip max 192.168.10.1
+
+range 0 size start 1500
+range 0 size min 1500
+range 0 size max 1500
+
+range 0 proto udp
+
+enable 0 range
+page main
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 20
+
+
+---------------------------- Parameters
+//-----------------------------HH
+#define THRESH_HH 100000
+//-----------------------------SYN
+#define THRESH_SYN 1000000
+#define SYN_DROP_RATE 25
+//-----------------------------SYN-ACK
+#define THRESH_SYNACK 1000000
+#define SYNACK_DROP_RATE 50
+//-----------------------------ACK
+#define THRESH_ACK 1000000
+#define ACK_DROP_RATE 75
+//-----------------------------FIN-RST
+const ExpireTimeProfileId_t EXPIRE_TIME_PROFILE_ID = (ExpireTimeProfileId_t) 4;
+//-----------------------------ICMP-REQ
+#define THRESH_ICMP 200000
+//-----------------------------UDP
+#define THRESH_UDP 1000000
+#define UDP_DROP_RATE 50
+
+#define SKETCH_LENGTH 32768
+#define SKETCH_WIDTH 1 //32

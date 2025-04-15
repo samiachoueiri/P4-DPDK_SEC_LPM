@@ -1,0 +1,7 @@
+alert udp any any -> any any (msg:"set counter - UDP Flood"; flowint:udp_counter,notset; flowint:udp_counter,=,1; noalert; sid:107;)
+alert udp any any -> any any (msg:"counter+1 - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,+,1; noalert; sid:207;)
+alert udp any any -> any any (msg:"count>100 i=1 - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,>=,100; flowint:iter,notset; flowint:iter,=,1; noalert; sid:307;)
+alert udp any any -> any any (msg:"i+1 - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,>=,100; flowint:iter,isset; flowint:iter,+,1; noalert; sid:407;)
+drop udp any any -> any any (msg:"i<50 DROP - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,>=,100; flowint:iter,isset; flowint:iter,<,50; sid:507;)
+alert udp any any -> any any (msg:"i<100 pass - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,>=,100; flowint:iter,isset; flowint:iter,<,100; noalert; sid:607;)
+alert udp any any -> any any (msg:"i=100 reset - UDP Flood"; flowint:udp_counter,isset; flowint:udp_counter,>=,100; flowint:iter,isset; flowint:iter,==,100; flowint:iter,=,1; noalert; sid:707;)

@@ -1,0 +1,2 @@
+match 0xC0A80A01 action forward dstAddr 0x3 port_id 0x1
+match 0xC0A81401 action forward dstAddr 0x1 port_id 0x0

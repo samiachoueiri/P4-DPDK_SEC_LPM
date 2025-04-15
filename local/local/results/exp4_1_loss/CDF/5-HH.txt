@@ -1,0 +1,25 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ HH from h3 to h2 rate 1%
++++++++++++++++++++ TS_start:1278176036 TS_detect:1279361808 TS_block:1279391721 ~less than 29913 us
+
+disable 0 range
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 1
+set 0 tcp flag clr all
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++ HH from h3 to h2 rate 10%
++++++++++++++++++++ TS_start:1794820846 TS_detect:1794919817 TS_block:1794942825 ~less than 23008 us
+
+disable 0 range
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 10
+set 0 tcp flag clr all

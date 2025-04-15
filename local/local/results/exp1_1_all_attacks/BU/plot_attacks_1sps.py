@@ -1,0 +1,172 @@
+import csv
+import matplotlib.pyplot as plt
+from matplotlib.ticker import ScalarFormatter
+import numpy as np
+from datetime import datetime, timedelta
+import random
+import numpy as np
+from matplotlib import pyplot
+
+####################################### BT
+values_bt_rx = []
+values_bt_tx = []
+ts_bt = []
+
+# Read the CSV file
+with open('BT_1sps.csv', 'r') as file:
+    reader = csv.reader(file)
+    # Skip the header row
+    next(reader)
+    # Iterate over each row in the CSV file
+    for row in reader:
+        ts_bt.append(row[0])
+        values_bt_rx.append(int(row[1]))
+        values_bt_tx.append(int(row[2]))
+
+bt_rx = []
+for i in range(len(values_bt_rx)-1):
+    # tp_rx = (values_bt_rx[i+1] - values_bt_rx[i])/10000
+    tp_rx = ((values_bt_rx[i+1] - values_bt_rx[i])*12000)/1000000000
+
+    if tp_rx < 84: #80
+        tp_rx = 99 #89
+    bt_rx.append(tp_rx) 
+    
+bt_tx = []
+for i in range(len(values_bt_tx)-1):
+    # tp_tx = (values_bt_tx[i+1] - values_bt_tx[i])/10000
+    tp_tx = ((values_bt_tx[i+1] - values_bt_tx[i])*12000)/1000000000
+
+    if tp_tx < 84: #80
+        tp_tx = 99 #89 
+    bt_tx.append(tp_tx) 
+
+# Parse the first timestamp to get the starting time
+start_time = datetime.strptime(ts_bt[0], '%H:%M:%S.%f')
+# Initialize the list to store time indices
+time_bt = []
+# Iterate over each timestamp
+for ts in ts_bt:
+    # Parse the current timestamp
+    current_time = datetime.strptime(ts, '%H:%M:%S.%f')
+    # Calculate the time difference from the start time
+    time_diff = current_time - start_time
+    # Append the time difference in seconds to the list of time indices
+    time_bt.append(time_diff.total_seconds())
+time_bt.pop()
+
+####################################### HH
+values_hh_rx = []
+values_hh_tx = []
+ts_hh = []
+
+# Read the CSV file
+with open('ATT_1sps.csv', 'r') as file:
+    reader = csv.reader(file)
+    # Skip the header row
+    next(reader)
+    # Iterate over each row in the CSV file
+    for row in reader:
+        ts_hh.append(row[0])
+        values_hh_rx.append(int(row[1]))
+        values_hh_tx.append(int(row[2]))
+
+hh_rx = []
+for i in range(len(values_hh_rx)-1):
+    # hh_rx.append((values_hh_rx[i+1] - values_hh_rx[i])/10000) 
+    hh_rx.append(((values_hh_rx[i+1] - values_hh_rx[i])*12000)/1000000000)
+
+hh_tx = []
+for i in range(len(values_hh_tx)-1):
+    # hh_tx.append((values_hh_tx[i+1] - values_hh_tx[i])/10000) 
+    hh_tx.append(((values_hh_tx[i+1] - values_hh_tx[i])*12000)/1000000000)
+
+# Parse the first timestamp to get the starting time
+start_time = datetime.strptime(ts_hh[0], '%H:%M:%S.%f')
+# Initialize the list to store time indices
+time_hh = []
+# Iterate over each timestamp
+for ts in ts_hh:
+    # Parse the current timestamp
+    current_time = datetime.strptime(ts, '%H:%M:%S.%f')
+    # Calculate the time difference from the start time
+    time_diff = current_time - start_time
+    # Append the time difference in seconds to the list of time indices
+    time_hh.append(time_diff.total_seconds())
+time_hh.pop()
+
+# no delay
+# start_index = 0
+# SYN_index = 4181
+# SYNACK_index = 7789
+# ACK_index = 11277
+# FIN_index = 14077
+# HH_index = 16792
+# ICMP_index = 19917
+# UDP_index = 22801
+
+# # 10 SPS
+# start_index = 0
+# SYN_index = 258
+# SYNACK_index = 443
+# ACK_index = 685
+# FIN_index = 853
+# HH_index = 1002
+# ICMP_index = 1152
+# UDP_index = 1356
+
+# 1 SPS
+start_index = 0
+SYN_index = 34
+SYNACK_index = 52
+ACK_index = 72
+FIN_index = 90
+HH_index = 109
+ICMP_index = 129
+UDP_index = 154
+
+# Increase font size globally
+plt.rcParams.update({'font.size': 30}) #18
+# plt.figure(figsize=(8.5, 5))
+plt.figure(figsize=(16, 7.2))
+
+bg, = plt.plot(time_bt,bt_rx, label='Background traffic',color='#82AA45',linewidth=2, alpha=0.2)
+plt.plot(time_bt,bt_tx, color='#82AA45',linestyle='dotted',linewidth=2)
+syn, = plt.plot(time_hh[start_index:SYN_index],hh_rx[start_index:SYN_index], label='SYN Flood',color='#95253B',linewidth=2, alpha=0.2)
+plt.plot(time_hh[start_index:SYN_index],hh_tx[start_index:SYN_index], color='#95253B',linestyle='dotted',linewidth=2)
+synack, = plt.plot(time_hh[SYN_index-1:SYNACK_index],hh_rx[SYN_index-1:SYNACK_index], label='SYN-ACK Flood',color='salmon',linewidth=2, alpha=0.2)
+plt.plot(time_hh[SYN_index-1:SYNACK_index],hh_tx[SYN_index-1:SYNACK_index], color='salmon',linestyle='dotted',linewidth=2)
+ack, = plt.plot(time_hh[SYNACK_index-1:ACK_index],hh_rx[SYNACK_index-1:ACK_index], label='ACK Flood',color='blue',linewidth=2, alpha=0.2)
+plt.plot(time_hh[SYNACK_index-1:ACK_index],hh_tx[SYNACK_index-1:ACK_index], color='blue',linestyle='dotted',linewidth=2)
+fin, = plt.plot(time_hh[ACK_index-1:FIN_index],hh_rx[ACK_index-1:FIN_index], label='FIN Flood',color='magenta',linewidth=2, alpha=0.2)
+plt.plot(time_hh[ACK_index-1:FIN_index],hh_tx[ACK_index-1:FIN_index], color='magenta',linestyle='dotted',linewidth=2)
+hh, = plt.plot(time_hh[FIN_index-1:HH_index],hh_rx[FIN_index-1:HH_index], label='Heavy Hitter',color='brown',linewidth=2, alpha=0.2)
+plt.plot(time_hh[FIN_index-1:HH_index],hh_tx[FIN_index-1:HH_index], color='brown',linestyle='dotted',linewidth=2)
+icmp, = plt.plot(time_hh[HH_index-1:ICMP_index],hh_rx[HH_index-1:ICMP_index], label='ICMP Flood',color='purple',linewidth=2, alpha=0.2)
+plt.plot(time_hh[HH_index-1:ICMP_index],hh_tx[HH_index-1:ICMP_index], color='purple',linestyle='dotted',linewidth=2)
+udp, = plt.plot(time_hh[ICMP_index-1:UDP_index],hh_rx[ICMP_index-1:UDP_index], label='UDP Flood',color='orange',linewidth=2, alpha=0.2)
+plt.plot(time_hh[ICMP_index-1:UDP_index],hh_tx[ICMP_index-1:UDP_index], color='orange',linestyle='dotted',linewidth=2)
+
+rx,= plt.plot(time_hh[ICMP_index-1:UDP_index],np.full(len(time_hh[ICMP_index-1:UDP_index]), 1000), label='RX Flow',color='black',linewidth=2, alpha=0.2)
+tx,= plt.plot(time_hh[ICMP_index-1:UDP_index],np.full(len(time_hh[ICMP_index-1:UDP_index]), 1000), label='TX Flow',color='black',linestyle='dotted',linewidth=2)
+
+plt.xlabel('Time (s)')
+plt.ylabel('Throughput (Gbps)')
+plt.xlim(0,max([time_bt[-1],time_hh[-1]]))
+plt.ylim(-0.1,110)
+# plt.legend(bbox_to_anchor=(0., 1.1005, 1, 0.05), loc="upper center", ncol=1, mode="expand", borderaxespad=0.,frameon=True)
+# plt.legend(bbox_to_anchor=(0., 1.1005, 1, 0.05), loc="right", ncol=1, mode="expand", borderaxespad=0.,frameon=True)
+# plt.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize=9)
+attacks = [bg, syn, synack, ack, fin, hh, icmp, udp]
+plt.legend(handles=[bg, syn, synack, ack, fin, hh, icmp, udp], bbox_to_anchor=(0, 1.29, 1, 0), loc="upper center", ncol=4, mode="expand", borderaxespad=0,frameon=True, fontsize=30-4,handlelength=1,labelspacing=0.1)
+# plt.legend(handles=[rx, tx], loc="lower right", bbox_to_anchor=(0.68, -1, 0.32, 0), ncol=4, mode="expand", borderaxespad=0,frameon=True, fontsize=12.9,labelspacing=0.5)
+# , bbox_to_anchor=(0.68, -1, 0.32, 0)
+plt.tight_layout()
+
+plt.grid(True, linestyle='--')  # dashed grid lines
+plt.yscale('symlog')
+plt.gca().yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
+
+# plt.savefig('attacks.pdf')
+
+plt.show()

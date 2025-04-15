@@ -1,0 +1,20 @@
+; Generate pipeline code & build shared object
+pipeline codegen /home/admin/main/main.spec /tmp/test.c
+pipeline libbuild /tmp/test.c /tmp/test.so
+
+; List of DPDK devices.
+mempool MEMPOOL0 meta 0 pkt 9500 pool 128K cache 256 numa 0
+
+; List DPDK ethernet devices
+ethdev 0000:0b:00.0 rxq 1 64 MEMPOOL0 txq 1 64 promiscuous on
+ethdev 0000:0b:00.1 rxq 1 64 MEMPOOL0 txq 1 64 promiscuous on
+
+; List pipelines
+pipeline PIPELINE0 build lib /tmp/test.so io /home/admin/main/ethdev0.io numa 0
+
+; Load rule to the match action table
+pipeline PIPELINE0 table forwarding add /home/admin/main/rules.txt
+pipeline PIPELINE0 commit
+
+; Map pipelines to CPU threads
+pipeline PIPELINE0 enable thread 1

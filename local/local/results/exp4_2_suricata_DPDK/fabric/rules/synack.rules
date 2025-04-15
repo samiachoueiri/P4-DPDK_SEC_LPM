@@ -1,0 +1,17 @@
+alert tcp any any -> any any (msg:"TCP SYN-ACK packet"; flags:S+; sid:101;)
+alert tcp any any -> any any (msg:"SYN-ACK Flood"; flags:S+; threshold: type both, track by_dst, count 100, seconds 3; sid:201;)
+alert tcp any any -> any any (msg:"TCP SYN-ACK packet"; flags:A; sid:101;)
+
+alert tcp any any -> any any (msg:"ACK packet"; ack:1; sid:103;)
+alert tcp any any -> any any (msg:"TCP SYN----NOACKKK packet"; flags:S; sid:103;)
+
+
+alert tcp any any -> any any (msg:"TCP SYN packet"; flags:S; sid:100;)
+
+
+
+alert tcp any any -> any any (msg:"TCP SYN packet"; flags:S,A; sid:100;)
+alert tcp any any -> any any (msg:"TCP SYN no ack packet"; flags:S; ack:0; sid:101;)
+alert tcp any any -> any any (msg:"TCP SYN yes ack packet"; flags:S; ack:1; sid:102;)
+
+alert tcp any any -> any any (msg:"SYN-ACK"; flags: SA; seq:1450984898; ack:1883203612; window:512; sid:100001;)

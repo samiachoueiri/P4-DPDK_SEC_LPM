@@ -1,0 +1,15 @@
+https://mawi.wide.ad.jp/mawi/
+https://mawi.wide.ad.jp/mawi/ditl/ditl2022/
+
+https://mawi.wide.ad.jp/mawi/ditl/ditl2024/
+morning.txt:
+411.8301123275667 0.19045751576859965 6
+MAE: 411.8301123275667 FP 0
+
+noon:
+617.0780925275044 0.3416797172102245 8
+MAE: 617.0780925275044 FP 0
+
+night:
+478.1077776264494 0.29271215413236695 7
+MAE: 478.1077776264494 FP 0

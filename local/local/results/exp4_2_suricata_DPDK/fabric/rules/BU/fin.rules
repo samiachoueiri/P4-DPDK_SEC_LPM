@@ -1,0 +1,4 @@
+alert tcp !192.168.20.10 any -> any any (msg:"NO MATCH - FIN Flood"; flags:F; sid:104;)
+alert tcp !192.168.20.10 any -> any any (msg:"NO MATCH - RST Flood"; flags:R; sid:204;)
+alert tcp 192.168.20.10 any -> any any (msg:"MATCH - FIN packet allowed"; flags:F; sid:304;)
+alert tcp 192.168.20.10 any -> any any (msg:"MATCH - RST packet allowed"; flags:R; sid:404;)

@@ -1,0 +1,5 @@
+alert tcp any any -> any any (msg:"FIN/RST Flood"; flags:R; threshold: type both, track by_dst, count 100, seconds 3; sid:004;)
+alert tcp !192.168.20.10 any -> any any (msg:"NO MATCH - FIN Flood"; flags:F; priority:2; noalert; sid:104;)
+alert tcp !192.168.20.10 any -> any any (msg:"NO MATCH - RST Flood"; flags:R; priority:2; noalert; sid:204;)
+alert tcp 192.168.20.10 any -> any any (msg:"MATCH - FIN packet allowed"; flags:F; priority:2; noalert; sid:304;)
+alert tcp 192.168.20.10 any -> any any (msg:"MATCH - RST packet allowed"; flags:R; priority:2; noalert; sid:404;)
