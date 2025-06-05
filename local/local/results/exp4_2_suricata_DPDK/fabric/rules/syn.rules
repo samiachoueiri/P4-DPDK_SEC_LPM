@@ -1,0 +1,3 @@
+alert tcp any any -> any any (msg:"SYN Flood"; flags:S; threshold: type both, track by_dst, count 100, seconds 3; sid:201;)
+
+alert tcp any any -> any any (msg:"SYN Flood"; flags:S; threshold: type both, track by_dst, count 1000, seconds 1; sid:201;)

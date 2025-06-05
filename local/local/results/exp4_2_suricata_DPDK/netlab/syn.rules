@@ -1,0 +1,10 @@
+alert tcp any any -> any any (msg:"SYN packet"; flags:S; noalert; sid:101;)
+drop tcp any any -> any any (msg:"SYN Flood"; flags:S; threshold: type both, track by_dst, count 100, seconds 3; sid:201;)
+
+alert tcp any any -> any any (msg:"set counter - SYN Flood"; flags:S; flowint:syn_counter,notset; flowint:syn_counter,=,1; sid:101;)
+alert tcp any any -> any any (msg:"counter+1 - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,+,1; sid:201;)
+alert tcp any any -> any any (msg:"count>100 i=1 - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,>=,100; flowint:iter,notset; flowint:iter,=,1; sid:301;)
+alert tcp any any -> any any (msg:"i+1 - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,>=,100; flowint:iter,isset; flowint:iter,+,1; sid:401;)
+drop tcp any any -> any any (msg:"i<50 DROP - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,>=,100; flowint:iter,isset; flowint:iter,<,25; sid:501;)
+alert tcp any any -> any any (msg:"i<100 pass - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,>=,100; flowint:iter,isset; flowint:iter,<,100; sid:601;)
+alert tcp any any -> any any (msg:"i=100 reset - SYN Flood"; flags:S; flowint:syn_counter,isset; flowint:syn_counter,>=,100; flowint:iter,isset; flowint:iter,==,100; flowint:iter,=,1; sid:701;)

@@ -1,0 +1,152 @@
+https://mawi.wide.ad.jp/mawi/
+https://mawi.wide.ad.jp/mawi/ditl/ditl2022/
+
+https://mawi.wide.ad.jp/mawi/ditl/ditl2024/
+morning.txt:
+411.8301123275667 0.19045751576859965 6
+MAE: 411.8301123275667 FP 0
+
+noon:
+617.0780925275044 0.3416797172102245 8
+MAE: 617.0780925275044 FP 0
+
+night:
+478.1077776264494 0.29271215413236695 7
+MAE: 478.1077776264494 FP 0
+
+
+steps:
+1) get sys per sec from mawi trace using zeek [noon.txt]
+2) training using optimized to get alpha and k [a , k]
+3) test using mae to verify alpha and k are correct [noon.txt, a, k -> noon_out.txt]
+4) get flood syn per sec from flood trace using zeek [syn.txt]
+5) join to mawi trace using join_mawi_flood script [noon.txt, syn.txt -> noon_flood.txt]
+6) test using mae_flood to verify the flood is detected [noon_flood.txt, a, k -> noon_flood_out.txt]
+7) plot in plot_trace_flood.py
+
+note:
+noon_syn_out.txt is there to test syn flood trace of alpha and k using mae_flood.py [syn.txt, a, k -> noon_syn_out.txt]
+
+_______________________full day________________________________
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406182345.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190000.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190015.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190030.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190045.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190100.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190115.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190130.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190145.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190200.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190215.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190230.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190245.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190300.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190315.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190330.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190345.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190400.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190415.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190430.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190445.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190500.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190515.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190530.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190545.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190600.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190615.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190630.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190645.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190700.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190715.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190730.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190745.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190800.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190815.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190830.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190845.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190900.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190915.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190930.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406190945.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191000.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191015.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191030.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191045.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191100.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191115.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191130.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191145.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191200.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191215.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191230.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191245.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191300.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191315.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191330.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191345.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191400.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191415.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191430.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191445.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191500.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191515.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191530.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191545.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191600.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191615.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191630.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191645.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191700.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191715.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191730.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191745.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191800.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191815.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191830.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191845.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191900.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191915.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191930.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406191945.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192000.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192015.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192030.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192045.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192100.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192115.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192130.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192145.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192200.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192215.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192230.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192245.pcap.gz
+
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192300.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192315.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192330.pcap.gz
+http://mawi.nezu.wide.ad.jp/mawi/ditl/ditl2024/202406192345.pcap.gz

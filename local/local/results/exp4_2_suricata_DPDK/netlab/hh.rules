@@ -1,0 +1,3 @@
+alert tcp any any -> any any (msg:"Setting a counter"; flowint:hh_counter,notset; flowint:hh_counter,=,1; noalert; sid:105;)
+alert tcp any any -> any any (msg:"Adding to counter"; flowint:hh_counter,isset; flowint:hh_counter,+,1; noalert; sid:205;)
+drop tcp any any -> any any (msg:"THRESHOLD REACHED - Heavy Hitter"; flowint:hh_counter,isset; flowint:hh_counter,>=,10; sid:305;)

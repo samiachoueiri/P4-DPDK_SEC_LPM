@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <networks>
+    <network id="3" name="n3" icon="" canvas="1" type="SWITCH">
+      <position x="188.0" y="295.0" lat="47.57648489408939" lon="-122.12979096964875" alt="2.0"/>
+    </network>
+    <network id="4" name="n4" icon="" canvas="1" type="SWITCH">
+      <position x="614.0" y="183.0" lat="47.57750297821261" lon="-122.12405073498323" alt="2.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="1" name="n1" icon="" canvas="1" type="PC" class="" image="" compose="" compose_name="">
+      <position x="189.0" y="431.0" lat="47.57524862246991" lon="-122.1297774949195" alt="2.0"/>
+      <services>
+        <service name="DefaultRoute"/>
+      </services>
+    </device>
+    <device id="2" name="n2" icon="" canvas="1" type="PC" class="" image="" compose="" compose_name="">
+      <position x="616.0" y="449.0" lat="47.57508499609775" lon="-122.12402378552471" alt="2.0"/>
+      <services>
+        <service name="DefaultRoute"/>
+      </services>
+    </device>
+    <device id="5" name="suricata" icon="/home/admin/.coregui/icons/suricata.png" canvas="1" type="" class="docker" image="suricata" compose="" compose_name="">
+      <position x="188.0" y="185.0" lat="47.57748479831257" lon="-122.12979096964875" alt="2.0"/>
+    </device>
+    <device id="6" name="n6" icon="" canvas="1" type="router" class="" image="" compose="" compose_name="">
+      <position x="416.0" y="80.0" lat="47.57843923453127" lon="-122.12671873137708" alt="2.0"/>
+      <services>
+        <service name="OSPFv3"/>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv2"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="3" node2="5">
+      <iface1 id="1" name="veth3.1.1"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:01" ip4="192.168.10.1" ip4_mask="24"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="6" node2="4">
+      <iface1 id="1" name="eth1" mac="00:00:00:aa:00:04" ip4="192.168.20.1" ip4_mask="24"/>
+      <iface2 id="0" name="veth4.0.1"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="1" node2="3">
+      <iface1 id="0" name="eth0" mac="00:00:00:aa:00:00" ip4="192.168.10.10" ip4_mask="24"/>
+      <iface2 id="0" name="veth3.0.1"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="4" node2="2">
+      <iface1 id="1" name="veth4.1.1"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:05" ip4="192.168.20.10" ip4_mask="24"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="5" node2="6">
+      <iface1 id="1" name="eth1" mac="00:00:00:aa:00:02" ip4="192.168.11.10" ip4_mask="24"/>
+      <iface2 id="0" name="eth0" mac="00:00:00:aa:00:03" ip4="192.168.11.1" ip4_mask="24"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+  </links>
+  <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="150.0"/>
+  <session_options>
+    <configuration name="controlnet" value=""/>
+    <configuration name="controlnet0" value=""/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+    <configuration name="platform_id_start" value="1"/>
+    <configuration name="nem_id_start" value="1"/>
+    <configuration name="link_enabled" value="1"/>
+    <configuration name="loss_threshold" value="30"/>
+    <configuration name="link_interval" value="1"/>
+    <configuration name="link_timeout" value="4"/>
+    <configuration name="mtu" value="0"/>
+    <configuration name="checksums" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="shapes" value="[]"/>
+    <configuration name="edges" value="[]"/>
+    <configuration name="hidden" value="[]"/>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: true, &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: null, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false, &quot;dimensions&quot;: [1000, 750]}]}"/>
+  </session_metadata>
+</scenario>

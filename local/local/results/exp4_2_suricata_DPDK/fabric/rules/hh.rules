@@ -1,0 +1,9 @@
+alert tcp any any -> !192.168.20.1 any (msg:"Setting a counter"; flowint:hh_counter,notset; flowint:hh_counter,=,1; priority:5; sid:105;)
+alert tcp any any -> !192.168.20.1 any (msg:"Adding to counter"; flowint:hh_counter,isset; flowint:hh_counter,+,1; noalert; priority:5; noalert; sid:205;)
+alert tcp any any -> !192.168.20.1 any (msg:"THRESHOLD REACHED - Heavy Hitter"; flowint:hh_counter,isset; flowint:hh_counter,>=,1000; noalert; priority:5; noalert; sid:305;)
+
+
+-------------------------------------------------- with SYN and FIN
+alert tcp !192.168.10.1 any -> any any (msg:"Setting a counter"; flowint:hh_counter,notset; flowint:hh_counter,=,1; noalert; sid:105;)
+alert tcp !192.168.10.1 any -> any any (msg:"Adding to counter"; flowint:hh_counter,isset; flowint:hh_counter,+,1; noalert; sid:205;)
+alert tcp !192.168.10.1 any -> any any (msg:"THRESHOLD REACHED - Heavy Hitter"; flowint:hh_counter,isset; flowint:hh_counter,>=,10; noalert; sid:305;)

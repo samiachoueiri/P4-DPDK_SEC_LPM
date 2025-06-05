@@ -1,0 +1,3 @@
+alert icmp any any -> any any (msg:"Setting a counter"; itype:8; flowint:icmp_counter,notset; flowint:icmp_counter,=,1; sid:106;)
+alert icmp any any -> any any (msg:"Adding to counter"; itype:8; flowint:icmp_counter,isset; flowint:icmp_counter,+,1; sid:206;)
+alert icmp any any -> any any (msg:"THRESHOLD REACHED - ICMP Flood"; itype:8; flowint:icmp_counter,isset; flowint:icmp_counter,>=,1000; sid:306;)

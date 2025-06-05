@@ -1,0 +1,139 @@
+-------------------------------------------------------------- on PC1 and PC2 Netlab2
+ubuntu@server1:~$ cat dpdk/VERSION 
+24.07.0-rc4
+ubuntu@server1:~$ cat Pktgen-DPDK/VERSION 
+24.05.5
+ubuntu@server1:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.5 LTS
+Release:        20.04
+Codename:       focal
+ubuntu@server1:~$ meson --version
+0.53.2
+
+Modify: Pktgen-DPDK/app/pktgen-port-cfg.c line 168
+pktgen_log_panic("Unable to allocate %'ld pkt_seq_t header", (long int)NUM_TOTAL_PKTS);
+-------------------------------------------------------------- on fabric other versions
+ubuntu@server1:~$ cat dpdk/VERSION 
+24.07.0-rc4
+ubuntu@server1:~$ cat Pktgen-DPDK/VERSION 
+24.03.0
+ubuntu@server1:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.5 LTS
+Release:        22.04
+Codename:       jammy
+ubuntu@server1:~$ 
+-------------------------------------------------------------- on fabric hh slice
+ubuntu@server1:~$ ls
+MLNX_OFED_LINUX-24.10-1.1.4.0-ubuntu22.04-x86_64  MLNX_OFED_LINUX-24.10-1.1.4.0-ubuntu22.04-x86_64.tgz  Pktgen-DPDK  dpdk  nat64.sh
+ubuntu@server1:~$ cat dpdk/VERSION 
+24.07.0-rc4
+ubuntu@server1:~$ cat Pktgen-DPDK/VERSION 
+24.07.1
+ubuntu@server1:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.5 LTS
+Release:        22.04
+Codename:       jammy
+ubuntu@server1:~$ 
+-------------------------------------------------------------- on fabric hh4 slice
+ubuntu@server1:~$ ls
+MLNX_OFED_LINUX-23.07-0.5.0.0-ubuntu20.04-x86_64  MLNX_OFED_LINUX-23.07-0.5.0.0-ubuntu20.04-x86_64.tgz  Pktgen-DPDK  dpdk  nat64.sh
+ubuntu@server1:~$ cat dpdk/VERSION 
+25.03.0-rc0
+ubuntu@server1:~$ cat Pktgen-DPDK/VERSION 
+24.10.3
+ubuntu@server1:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.6 LTS
+Release:        20.04
+Codename:       focal
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Samia Choueiri
+:headphones:  12:35 PM
+threads = []
+for server in servers:
+    threads.append(server.execute_thread('''
+        sudo git clone https://github.com/pktgen/Pktgen-DPDK;
+        sudo sed -i \"s/deps += \\[dependency('numa', required: true)\\]/deps += \\[dependency('numa', required: false)\\]/\" /home/ubuntu/Pktgen-DPDK/app/meson.build;
+        sudo apt-get install -y cmake libpcap-dev libbsd-dev;
+        cd Pktgen-DPDK &&  sudo meson build && sudo ninja -C build && cd build/ && sudo meson install
+    '''))
+for thread in threads:
+    thread.result()
+
+GitHubGitHub
+GitHub - pktgen/Pktgen-DPDK: DPDK based packet generator
+DPDK based packet generator. Contribute to pktgen/Pktgen-DPDK development by creating an account on GitHub.
+12:39
+stdout, stderr = server1.execute(f'sudo git clone https://github.com/pktgen/Pktgen-DPDK')
+stdout, stderr = server1.execute("sudo sed -i '40s/.*/deps += [dependency('\'numa\'', required: false)]/' /home/ubuntu/Pktgen-DPDK/app/meson.build")
+12:39
+stdout, stderr = server1.execute(f'sudo apt-get install -y cmake')
+stdout, stderr = server1.execute(f'sudo apt-get install -y libpcap-dev')
+stdout, stderr = server1.execute(f'cd Pktgen-DPDK &&  sudo meson build && sudo ninja -C build && cd build/ && sudo meson install')
+
+
+Samia Choueiri
+:headphones:  12:54 PM
+meson.build
+ 
+sources = files(
+    'cli-functions.c',
+    'l2p.c',
+    'pktgen-arp.c',
+    'pktgen-capture.c',
+Click to expand inline (60 lines)
+
+
+
+
+
+Sergio Elizalde
+  1:09 PM
+https://git.dpdk.org/apps/pktgen-dpdk/refs/
+
+
+Sergio Elizalde
+  1:15 PM
+https://core.dpdk.org/download/
+
+
+Sergio Elizalde
+  5:11 PM
+ubuntu@server1:~$ cd Pktgen-DPDK/
+ubuntu@server1:~/Pktgen-DPDK$ cat VERSION
+24.07.1
+ubuntu@server1:~/Pktgen-DPDK$ cd ...
+-bash: cd: ...: No such file or directory
+ubuntu@server1:~/Pktgen-DPDK$ cd ..
+ubuntu@server1:~$ cd dpdk/
+ubuntu@server1:~/dpdk$ cat VERSION
+24.07.0-rc4
+ubuntu@server1:~/dpdk$
+5:12
+git clone --branch v24.07-rc4 https://github.com/DPDK/dpdk.git
+GitHubGitHub
+GitHub - DPDK/dpdk: Data Plane Development Kit
+Data Plane Development Kit. Contribute to DPDK/dpdk development by creating an account on GitHub. (47 kB)
+https://github.com/DPDK/dpdk.git
+
+5:14
+sudo git clone --branch pktgen-24.07.1 https://github.com/pktgen/Pktgen-DPDK
+GitHubGitHub
+GitHub - pktgen/Pktgen-DPDK: DPDK based packet generator
+DPDK based packet generator. Contribute to pktgen/Pktgen-DPDK development by creating an account on GitHub. (96 kB)
+https://github.com/pktgen/Pktgen-DPDK
+
+
+
+Samia Choueiri
+:headphones:  9:22 PM
+sudo pktgen -l 0-3 -n 3 -- -P -m "1.0" -s 1:202401011400.pcap
+

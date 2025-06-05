@@ -1,0 +1,9 @@
+disable 0 range
+
+set 0 src mac 00:00:00:00:00:03
+set 0 dst mac 00:00:00:00:00:22
+set 0 src ip 192.168.20.1/24
+set 0 dst ip 192.168.10.1
+set 0 size 1500
+set 0 rate 10
+set 0 tcp flag clr all
